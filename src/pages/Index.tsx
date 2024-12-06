@@ -4,7 +4,8 @@ import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { Search } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Search, Plus } from "lucide-react";
 
 const Index = () => {
   const [viewMode, setViewMode] = useState<"map" | "list">("list");
@@ -23,7 +24,8 @@ const Index = () => {
       tags: ["Organic", "Local Delivery"],
       location: "123 Farm Road, Valley City",
       contact: "contact@greenvalley.com",
-      deliveryAreas: ["Valley City", "Riverside"]
+      deliveryAreas: ["Valley City", "Riverside"],
+      coordinates: { lat: 51.505, lng: -0.09 }
     },
     {
       name: "Sunrise Ranch",
@@ -34,7 +36,8 @@ const Index = () => {
       tags: ["Free Range", "Organic"],
       location: "456 Ranch Road, Hillside",
       contact: "info@sunriseranch.com",
-      deliveryAreas: ["Hillside", "Mountain View"]
+      deliveryAreas: ["Hillside", "Mountain View"],
+      coordinates: { lat: 51.51, lng: -0.1 }
     },
     {
       name: "Meadow Brook Farm",
@@ -45,7 +48,8 @@ const Index = () => {
       tags: ["Regenerative", "Biodynamic"],
       location: "789 Meadow Lane, Brook Valley",
       contact: "hello@meadowbrook.com",
-      deliveryAreas: ["Brook Valley", "River Town"]
+      deliveryAreas: ["Brook Valley", "River Town"],
+      coordinates: { lat: 51.515, lng: -0.08 }
     }
   ];
 
@@ -69,7 +73,11 @@ const Index = () => {
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">Local Farms</h1>
+          <Button variant="outline" className="flex items-center gap-2">
+            <Plus className="h-4 w-4" />
+            Add a Farm
+          </Button>
+          <h1 className="text-3xl font-bold text-gray-900 absolute left-1/2 transform -translate-x-1/2">Local Farms</h1>
           <div className="flex items-center space-x-2">
             <span className={`text-sm ${viewMode === 'list' ? 'text-gray-900' : 'text-gray-500'}`}>List</span>
             <Switch
@@ -147,8 +155,16 @@ const Index = () => {
             ))}
           </div>
         ) : (
-          <div className="bg-gray-200 rounded-lg h-[600px] flex items-center justify-center">
-            <p className="text-gray-600">Map view coming soon</p>
+          <div className="bg-white rounded-lg shadow-md h-[600px] overflow-hidden">
+            <iframe
+              src={`https://www.google.com/maps/embed/v1/place?key=YOUR_API_KEY&q=51.505,-0.09&zoom=12`}
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
           </div>
         )}
       </div>
